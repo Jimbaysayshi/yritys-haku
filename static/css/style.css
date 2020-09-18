@@ -1,0 +1,88 @@
+* {
+  font-family: monospace;
+}
+#tableContainer {
+}
+
+#dataTable {
+}
+
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  background: rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  color: initial;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  margin-bottom: 8px;
+  padding: 8px;
+}
+a.button:hover {
+  border: 1px solid black;
+  background: rgba(0, 0, 0, 0.4);
+}
+#tableHead {
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  height: 30px;
+}
+.stats {
+  margin-left: 2px;
+  font-size: 15px;
+}
+#tableBody {
+  background: rgba(0, 0, 0, 0.2);
+}
+.formLabel {
+}
+statLink {
+}
+.formInput {
+  width: -webkit-fill-available;
+  font-size: 16px;
+}
+.infoBtn {
+  background: none;
+  border: none;
+}
+.infoBtn:focus {
+  border: none;
+  outline: none;
+}
+.infoBtn:active {
+  border: none;
+  outline: none;
+}
+
+#formSubmit {
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.15);
+  margin-top: 15px;
+  width: -webkit-fill-available;
+  font-size: 16px;
+}
+td {
+  padding: 5px;
+  font-size: 15px;
+}
+th {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+tr {
+  padding: 5px;
+}
+#form {
+  margin: auto;
+  width: 17.5rem;
+  font-size: 18px;
+}
+#title {
+  text-align: center;
+}
+#info {
+  margin-top: 40px;
+  text-align: center;
+  font-size: large;
+}

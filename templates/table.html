@@ -1,0 +1,53 @@
+{% extends 'index.html' %} {% block head %} {% endblock %}
+<!--body-->
+{% block body %}
+
+<container id="tableContainer">
+<h3 class="stats">Showing {{ results.amount }} results</h3>
+<p class="stats">Locality: {{ results.locality }}</p>
+<p class="stats">Registeration from {{ results.from }} until {{ results.to }}</p>
+<p class="stats">Query for industry code {{ results.code }}</p>
+<a class="stats button" href="/" >New Search</a>
+<a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Industry codes</a> 
+    <table id="dataTable">
+    <thead>
+      <tr id="tableHead">
+        <th class="tableHeadCell">Name</td>
+        <th class="tableHeadCell">Founder</td>
+        <th class="tableHeadCell">Registered</td>
+        <th class="tableHeadCell">Locality</td>
+        <th class="tableHeadCell">Post code</td>
+        <th class="tableHeadCell">Address</td>
+        <th class="tableHeadCell">Business code</td>
+        <th class="tableHeadCell">Business line</td>
+        <th class="tableHeadCell">Phone num</td>
+        <th class="tableHeadCell">Mobile num</td>
+        <th class="tableHeadCell">Website</td>
+        <th class="tableHeadCell">Company form</td>
+        <th class="tableHeadCell">Details</td>
+      </tr>
+    </thead>
+      <tbody>
+        {% for key, value in data.items() %}
+        <tr id="tableBody">
+          <td class="tableBodyCell">{{ key }}</td>
+          <td class="tableBodyCell">{{ value['founder'] }}</td>
+          <td class="tableBodyCell">{{ value['registered'] }}</td>
+          <td class="tableBodyCell">{{ value['locality'] }}</td>
+          <td class="tableBodyCell">{{ value['post_code'] }}</td>
+          <td class="tableBodyCell">{{ value['first_address'] }}</td>
+          <td class="tableBodyCell">{{ value['business_line_code'] }}</td>
+          <td class="tableBodyCell">{{ value['business_line'] }}</td>
+          <td class="tableBodyCell">{{ value['phone_num'] }}</td>
+          <td class="tableBodyCell">{{ value['mobile_num'] }}</td>
+          <td class="tableBodyCell">{{ value['website'] }}</td>
+          <td class="tableBodyCell">{{ value['company_form'] }}</td>
+          <td class="tableBodyCell"> <a href={{value['details']}}>Link</a></td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </container>
+{% endblock %}
+

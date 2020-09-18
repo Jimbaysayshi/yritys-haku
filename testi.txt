@@ -1,0 +1,6 @@
+Aawaco Oy: [ 
+       y-tunnus: 3155338-8
+       rekisteröity: 2020-09-01
+       yritysmuoto: OY
+]
+ 
