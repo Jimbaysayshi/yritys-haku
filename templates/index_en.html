@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block head %} {% endblock %}
+<!--body-->
+{% block body %}
+<div>
+<header>
+  <h1 id="title">Trade Register Search</h1>
+</header>
+<container>
+  
+  <div id="form">
+    <form action="/" method="POST">
+     
+      <!--
+      <label for="resultsFrom"> resultsFrom:</label>
+      <input type="text" name="resultsFrom" id="resultsFrom" value="0" />
+      -->
+    <div class="searchHolder">
+      <label for="registeredOffice" class="formLabel">Locality:</label>
+      <input
+        type="text"
+        name="registeredOffice"
+        class="formInput"
+        id="registeredOffice"
+        placeholder="Helsinki"
+      />
+    </div>
+     <div class="searchHolder">
+      <label for="businessLineCode" class="formLabel"> <a class="statLink" href="https://www.stat.fi/fi/luokitukset/toimiala/">Industry codes</a>:</label>
+      <button class="infoBtn" type="button" title="Standard Industrial Classifications can be found in Statistics Finland (stat.fi)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <input
+        type="text"
+        name="businessLineCode"
+        class="formInput"
+        id="businessLineCode"
+        placeholder="68310"
+      />
+    </div>     
+          <div class="searchHolder">
+      <label for="companyRegisterationFrom" class="formLabel">Registration from:</label>
+      <button class="infoBtn" type="button" title="Companies that are registered to the Finnish Trade Register after this date. (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <input
+        type="text"
+        name="companyRegisterationFrom"
+        class="formInput"
+        id="companyRegisterationFrom"
+        placeholder="{{ dates.weekago }}"
+      />
+    </div>
+          <div class="searchHolder">
+      <label for="companyRegistrationTo" class="formLabel">Registration until:</label>
+      <button class="infoBtn" type="button" title="Companies that are registered to the Finnish Trade Register before this date. (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+
+      <input
+        type="text"
+        name="companyRegistrationTo"
+        class="formInput"
+        id="companyRegistrationTo"
+        placeholder="{{ dates.now }}"
+      />
+    </div>
+          <div class="searchHolder">
+       <label for="maxResults" class="formLabel">Max results:</label>
+       <button class="infoBtn" type="button" title="Maximum amount of searches (max 100)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <input type="text" name="maxResults" class="formInput" id="maxResults" placeholder="10" />
+
+      <input id="formSubmit" type="submit" value="Search" />
+      
+    </div>
+    </form>
+  </div>
+</div>
+</container>
+
+<div id="info">
+  <h3>Info</h3>
+  <p>Search for Finnish companies based on locality, industry and registration time</p>
+  <p>All material shown here is public information from the <a href="https://www.prh.fi/fi/kaupparekisteri.html">Trade Register</a></p>  
+  <p>just made more available with this application</p> 
+  <p>More info about about the values by hovering your mouse over <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> </p>
+  <p>Default search (just click Search) shows 10 latest companies in Helsinki that has registered to the Trade Register</p>
+    
+</div>
+{% endblock %}

@@ -3,31 +3,31 @@
 {% block body %}
 
 <container id="tableContainer">
-<h3 class="stats">Näytetään {{ results.amount }} osumaa</h3>
-<p class="stats">Paikkakunta: {{ results.locality }}</p>
-<p class="stats">Rekisteröity{{ results.from }} - {{ results.to }}</p>
-<p class="stats">Valittu toimialaluokitus {{ results.code }}</p>
-<a class="stats button" href="/" >Uusi haku</a>
-<a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Toimialaluokitukset</a> 
-<a href="{{ url_for('download', filename=results.filename) }}">Lataa excel</a>
+<h3 class="stats">Showing {{ results.amount }} results</h3>
+<p class="stats">Locality: {{ results.locality }}</p>
+<p class="stats">Registeration from {{ results.from }} until {{ results.to }}</p>
+<p class="stats">Query for industry code {{ results.code }}</p>
+<a class="stats button" href="/" >New Search</a>
+<a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Industry codes</a> 
+<a href="{{ url_for('download', filename=results.filename) }}">Download</a>
     
     <table id="dataTable">
     <thead>
       <tr id="tableHead">
       
-        <th class="tableHeadCell">Nimi</td>
-        <th class="tableHeadCell">Rekisteröijä</td>
-        <th class="tableHeadCell">Rekisteröity</td>
-        <th class="tableHeadCell">Paikkakunta</td>
-        <th class="tableHeadCell">Posti nro</td>
-        <th class="tableHeadCell">Osoite</td>
-        <th class="tableHeadCell">Toimialaluokitus</td>
-        <th class="tableHeadCell">Toimiala</td>
-        <th class="tableHeadCell">Puhelin nro</td>
-        <th class="tableHeadCell">Mobiili nro</td>
-        <th class="tableHeadCell">Verkkosivu</td>
-        <th class="tableHeadCell">Yritysmuoto</td>
-        <th class="tableHeadCell">Lisätietoja</td>
+        <th class="tableHeadCell">Name</td>
+        <th class="tableHeadCell">Founder</td>
+        <th class="tableHeadCell">Registered</td>
+        <th class="tableHeadCell">Locality</td>
+        <th class="tableHeadCell">Post code</td>
+        <th class="tableHeadCell">Address</td>
+        <th class="tableHeadCell">Business code</td>
+        <th class="tableHeadCell">Business line</td>
+        <th class="tableHeadCell">Phone num</td>
+        <th class="tableHeadCell">Mobile num</td>
+        <th class="tableHeadCell">Website</td>
+        <th class="tableHeadCell">Company form</td>
+        <th class="tableHeadCell">Details</td>
       </tr>
     </thead>
       <tbody>

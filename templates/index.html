@@ -3,10 +3,9 @@
 {% block body %}
 <div>
 <header>
-  <h1 id="title">Trade Register Search</h1>
+  <h1 id="title">Yritys haku</h1>
 </header>
 <container>
-
   <div id="form">
     <form action="/" method="POST">
      
@@ -15,7 +14,7 @@
       <input type="text" name="resultsFrom" id="resultsFrom" value="0" />
       -->
     <div class="searchHolder">
-      <label for="registeredOffice" class="formLabel">Locality:</label>
+      <label for="registeredOffice" class="formLabel">Paikkakunta:</label>
       <input
         type="text"
         name="registeredOffice"
@@ -25,8 +24,8 @@
       />
     </div>
      <div class="searchHolder">
-      <label for="businessLineCode" class="formLabel"> <a class="statLink" href="https://www.stat.fi/fi/luokitukset/toimiala/">Industry codes</a>:</label>
-      <button class="infoBtn" type="button" title="Standard Industrial Classifications can be found in Statistics Finland (stat.fi)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <label for="businessLineCode" class="formLabel"> <a class="statLink" href="https://www.stat.fi/fi/luokitukset/toimiala/">Toimialaluokitus</a>:</label>
+      <button class="infoBtn" type="button" title="Toimialaluokitukset löytyvät linkistä (tilastokeskus)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
       <input
         type="text"
         name="businessLineCode"
@@ -36,8 +35,8 @@
       />
     </div>     
           <div class="searchHolder">
-      <label for="companyRegisterationFrom" class="formLabel">Registration from:</label>
-      <button class="infoBtn" type="button" title="Companies that are registered to the Finnish Trade Register after this date. (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <label for="companyRegisterationFrom" class="formLabel">Rekisteröity jälkeen:</label>
+      <button class="infoBtn" type="button" title="Yritykset jotka ovat rekisteröity tämän päivämäärän jälkeen (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
       <input
         type="text"
         name="companyRegisterationFrom"
@@ -47,8 +46,8 @@
       />
     </div>
           <div class="searchHolder">
-      <label for="companyRegistrationTo" class="formLabel">Registration until:</label>
-      <button class="infoBtn" type="button" title="Companies that are registered to the Finnish Trade Register before this date. (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+      <label for="companyRegistrationTo" class="formLabel">Rekisteröity ennen:</label>
+      <button class="infoBtn" type="button" title="Yritykset jotka ovat rekisteröity ennen tätä päivämäärää (YYYY-MM-DD)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
 
       <input
         type="text"
@@ -59,11 +58,11 @@
       />
     </div>
           <div class="searchHolder">
-       <label for="maxResults" class="formLabel">Max results:</label>
-       <button class="infoBtn" type="button" title="Maximum amount of searches (max 100)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
+       <label for="maxResults" class="formLabel">Max osumat:</label>
+       <button class="infoBtn" type="button" title="Haku osumien maksimi määrä (max 100)"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></button>
       <input type="text" name="maxResults" class="formInput" id="maxResults" placeholder="10" />
 
-      <input id="formSubmit" type="submit" value="Search" />
+      <input id="formSubmit" type="submit" value="Hae" />
       
     </div>
     </form>
@@ -73,11 +72,12 @@
 
 <div id="info">
   <h3>Info</h3>
-  <p>Search for Finnish companies based on locality, industry and registration time</p>
-  <p>All material shown here is public information from the <a href="https://www.prh.fi/fi/kaupparekisteri.html">Trade Register</a></p>  
-  <p>just made more available with this application</p> 
-  <p>More info about about the values by hovering your mouse over <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> </p>
-  <p>Default search (just click Search) shows 10 latest companies in Helsinki that has registered to the Trade Register</p>
+ 
+  <p>Hae Suomalaisia yrityksiä, paikkakunnan, toimialan sekä rekisteröinti ajan mukaan</p>
+  <p>Kaikki materiaali tällä sivulla on julkista tietoa <a href="https://www.prh.fi/fi/kaupparekisteri.html">Kaupparekisteristä</a></p>  
+  <p>tehty vain helpommin saataville tällä hakukoneella</p> 
+  <p>Lisätietoa hakukenttien arvoista saat siirtämällä hiiren infopainikkeen päälle <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> </p>
+  <p>Oletus haku (paina "Hae") näyttää 10 viimeksi Helsinkiin rekisteröityä yritystä</p>
     
 </div>
 {% endblock %}

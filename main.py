@@ -210,15 +210,14 @@ def index():
 def scheduled_delete():
     now = time.time()
     path = app.config['UPLOAD_FOLDER']
-    print(now)
     for f in os.listdir(path):
         real_path = os.path.join(path, f)
-        if os.stat(real_path).st_mtime < now - 1 * 60 * 1000:
+        if os.stat(real_path).st_mtime < now - 15 * 60:
             os.remove(real_path)
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=scheduled_delete, trigger="interval", hours=1)
+scheduler.add_job(func=scheduled_delete, trigger="interval", minutes=15)
 scheduler.start()
 
 # Shut down the scheduler when exiting the app
