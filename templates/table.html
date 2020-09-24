@@ -9,9 +9,12 @@
 <p class="stats">Query for industry code {{ results.code }}</p>
 <a class="stats button" href="/" >New Search</a>
 <a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Industry codes</a> 
+<a href="{{ url_for('download', filename=results.filename) }}">Download</a>
+    
     <table id="dataTable">
     <thead>
       <tr id="tableHead">
+      
         <th class="tableHeadCell">Name</td>
         <th class="tableHeadCell">Founder</td>
         <th class="tableHeadCell">Registered</td>

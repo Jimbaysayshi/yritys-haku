@@ -1,11 +1,18 @@
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, current_app, send_from_directory
+from apscheduler.schedulers.background import BackgroundScheduler
 import requests
 import json
 import os
 import datetime
+import xlwt
+import uuid
+import time
+import atexit
 
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = 'uploads/'
 
 
 def get_dates():
@@ -57,7 +64,6 @@ def sort_data(data):
                 website = item.get('value')
 
     except IndexError as ie:
-        print(ie)
         pass
     company = {
         'name': name,
@@ -122,13 +128,56 @@ def get_data(form):
             sorted_item = sort_data(item)
             sorted_data[sorted_item['name']] = sorted_item
     except json.decoder.JSONDecodeError as js:
-        print(js)
+
         sorted_data = {}
     return sorted_data
 
 
+def create_wb(data, path):
+    now = time.time()
+    workbook = xlwt.Workbook()
+    wb = workbook.add_sheet('wb')
+    titles = ['Name', 'Founder', 'Registered', 'Locality', 'Post code', 'Address',
+              'Business line', 'Phone num', 'Mobile num', 'Website', 'Company form']
+    bold = xlwt.easyxf('font: bold 1')
+    for i, title in enumerate(titles):
+        wb.write(0, i, title, bold)
+    i = 1
+    for company, values in data.items():
+        x = 0
+        wb.write(i, x, values['name'])
+        wb.write(i, x + 1, values['founder'])
+        wb.write(i, x + 2, values['registered'])
+        wb.write(i, x + 3, values['locality'])
+        wb.write(i, x + 4, values['post_code'])
+        wb.write(i, x + 5, values['first_address'])
+        wb.write(i, x + 6, values['business_line'])
+        wb.write(i, x + 7, values['phone_num'])
+        wb.write(i, x + 8, values['mobile_num'])
+        wb.write(i, x + 9, values['website'])
+        wb.write(i, x + 10, values['company_form'])
+        i += 1
+
+    try:
+        workbook.save(path)
+    except TypeError as te:
+        print(te)
+
+
+@ app.route("/uploads/<path:filename>", methods=['GET', 'POST'])
+def download(filename):
+    if os.path.isfile(app.config['UPLOAD_FOLDER'] + filename):
+        uploads = os.path.join(current_app.root_path,
+                               app.config['UPLOAD_FOLDER'])
+        return send_from_directory(directory=uploads, filename=filename)
+    else:
+        pass
+        # TODO something went wrong 404
+
+
 @ app.route("/", methods=['GET', 'POST'])
 def index():
+
     if request.method == 'POST':
         if len(request.form) > 0:
             valid_form = validate_form(request.form)
@@ -136,13 +185,19 @@ def index():
             if sorted_data == {}:
                 return render_template('index.html', dates=get_dates())
             else:
+                uu_id = uuid.uuid4()
+                filename = uu_id.hex + ".xls"
                 results = {
                     "amount": len(sorted_data),
                     "locality": valid_form['registeredOffice'],
                     "code": valid_form['businessLineCode'],
                     "from": valid_form['companyRegisterationFrom'],
-                    "to": valid_form['companyRegistrationTo']
+                    "to": valid_form['companyRegistrationTo'],
+                    "filename": filename
                 }
+
+                path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                create_wb(sorted_data, path)
                 return render_template('table.html', data=sorted_data, results=results)
 
     else:
@@ -152,6 +207,23 @@ def index():
     # return render_template('index.html', data=get_data())
 
 
+def scheduled_delete():
+    now = time.time()
+    path = app.config['UPLOAD_FOLDER']
+    print(now)
+    for f in os.listdir(path):
+        real_path = os.path.join(path, f)
+        if os.stat(real_path).st_mtime < now - 1 * 60 * 1000:
+            os.remove(real_path)
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=scheduled_delete, trigger="interval", hours=1)
+scheduler.start()
+
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
+
 if __name__ == "__main__":
-    app.run(port=8000)
-    #app.run(host='127.0.0.1', port=8000, debug=True)
+    # app.run(port=8000)
+    app.run(host='127.0.0.1', port=8000, debug=True)
