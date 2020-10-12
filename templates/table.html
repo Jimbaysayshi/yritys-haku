@@ -3,18 +3,18 @@
 {% block body %}
 
 <container id="tableContainer">
-<h3 class="stats">Näytetään {{ results.amount }} osumaa</h3>
-<p class="stats">Paikkakunta: {{ results.locality }}</p>
-<p class="stats">Rekisteröity{{ results.from }} - {{ results.to }}</p>
-<p class="stats">Valittu toimialaluokitus {{ results.code }}</p>
-<a class="stats button" href="/" >Uusi haku</a>
-<a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Toimialaluokitukset</a> 
-<a href="{{ url_for('download', filename=results.filename) }}">Lataa excel</a>
-    
-    <table id="dataTable">
+  <h3 class="stats">Näytetään {{ results.amount }} osumaa</h3>
+  <p class="stats">Paikkakunta: {{ results.locality }}</p>
+  <p class="stats">Rekisteröity {{ results.from }} - {{ results.to }}</p>
+  <p class="stats">Valittu toimialaluokitus {{ results.code }}</p>
+  <a class="stats button" href="/">Uusi haku</a>
+  <a class="stats button" href="https://www.stat.fi/fi/luokitukset/toimiala/">Toimialaluokitukset</a>
+  <a href="{{ url_for('download', filename=results.filename) }}">Lataa excel</a>
+
+  <table id="dataTable">
     <thead>
       <tr id="tableHead">
-      
+
         <th class="tableHeadCell">Nimi</td>
         <th class="tableHeadCell">Rekisteröijä</td>
         <th class="tableHeadCell">Rekisteröity</td>
@@ -30,27 +30,26 @@
         <th class="tableHeadCell">Lisätietoja</td>
       </tr>
     </thead>
-      <tbody>
-        {% for key, value in data.items() %}
-        <tr id="tableBody">
-          <td class="tableBodyCell">{{ key }}</td>
-          <td class="tableBodyCell">{{ value['founder'] }}</td>
-          <td class="tableBodyCell">{{ value['registered'] }}</td>
-          <td class="tableBodyCell">{{ value['locality'] }}</td>
-          <td class="tableBodyCell">{{ value['post_code'] }}</td>
-          <td class="tableBodyCell">{{ value['first_address'] }}</td>
-          <td class="tableBodyCell">{{ value['business_line_code'] }}</td>
-          <td class="tableBodyCell">{{ value['business_line'] }}</td>
-          <td class="tableBodyCell">{{ value['phone_num'] }}</td>
-          <td class="tableBodyCell">{{ value['mobile_num'] }}</td>
-          <td class="tableBodyCell">{{ value['website'] }}</td>
-          <td class="tableBodyCell">{{ value['company_form'] }}</td>
-          <td class="tableBodyCell"> <a href={{value['details']}}>Link</a></td>
-          
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </container>
-{% endblock %}
+    <tbody>
+      {% for key, value in data.items() %}
+      <tr id="tableBody">
+        <td class="tableBodyCell">{{ key }}</td>
+        <td class="tableBodyCell">{{ value['founder'] }}</td>
+        <td class="tableBodyCell">{{ value['registered'] }}</td>
+        <td class="tableBodyCell">{{ value['locality'] }}</td>
+        <td class="tableBodyCell">{{ value['post_code'] }}</td>
+        <td class="tableBodyCell">{{ value['first_address'] }}</td>
+        <td class="tableBodyCell">{{ value['business_line_code'] }}</td>
+        <td class="tableBodyCell">{{ value['business_line'] }}</td>
+        <td class="tableBodyCell">{{ value['phone_num'] }}</td>
+        <td class="tableBodyCell">{{ value['mobile_num'] }}</td>
+        <td class="tableBodyCell">{{ value['website'] }}</td>
+        <td class="tableBodyCell">{{ value['company_form'] }}</td>
+        <td class="tableBodyCell"> <a href={{value['details']}}>Link</a></td>
 
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</container>
+{% endblock %}
