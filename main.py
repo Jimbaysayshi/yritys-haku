@@ -101,10 +101,14 @@ def validate_form(form):
         else:
             valid_form[key] = value
     try:
+       
+        valid_form['maxResults'] =  int(valid_form['maxResults'])
         if valid_form['maxResults'] > 100:
             valid_form['maxResults'] = 100
     except TypeError:
         valid_form['maxResults'] = 10
+    
+    #print(valid_form)
     return valid_form
 
 
@@ -161,7 +165,7 @@ def create_wb(data, path):
     try:
         workbook.save(path)
     except TypeError as te:
-        print(te)
+        pass
 
 
 @ app.route("/uploads/<path:filename>", methods=['GET', 'POST'])
@@ -224,5 +228,5 @@ scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == "__main__":
-    # app.run(port=8000)
-    app.run(host='127.0.0.1', port=8000, debug=True)
+    #app.run(port=8000)
+    app.run(host='127.0.0.1', port=8000, debug=False)
