@@ -15,6 +15,16 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 
 
+def log_error(error):
+    now =  datetime.datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    e = repr(error)
+    with open("logs/error.log", "a") as error_log:
+        error_log.write(("{0}: {1}\n".format(dt_string, e)))
+        
+        
+
+
 def get_dates():
     now = datetime.datetime.now()
     week = datetime.timedelta(days=7)
@@ -55,7 +65,6 @@ def sort_data(data):
 
         contacts = detail_data[0]['contactDetails']
         for item in contacts:
-
             if 'Puhelin' in item.values():
                 phone_num = item.get('value')
             elif 'Matkapuhelin' in item.values():
@@ -63,7 +72,7 @@ def sort_data(data):
             elif 'Kotisivun www-osoite' in item.values():
                 website = item.get('value')
 
-    except IndexError as ie:
+    except IndexError:
         pass
     company = {
         'name': name,
@@ -85,7 +94,7 @@ def sort_data(data):
 
 def validate_form(form):
     now = datetime.datetime.now()
-    week = datetime.timedelta(days=7)
+    #week = datetime.timedelta(days=7)
     valid_form = {}
     default_parameters = {
         "maxResults": 10,
@@ -101,14 +110,14 @@ def validate_form(form):
         else:
             valid_form[key] = value
     try:
-       
-        valid_form['maxResults'] =  int(valid_form['maxResults'])
+
+        valid_form['maxResults'] = int(valid_form['maxResults'])
         if valid_form['maxResults'] > 100:
             valid_form['maxResults'] = 100
     except TypeError:
         valid_form['maxResults'] = 10
-    
-    #print(valid_form)
+
+    # print(valid_form)
     return valid_form
 
 
@@ -132,13 +141,13 @@ def get_data(form):
             sorted_item = sort_data(item)
             sorted_data[sorted_item['name']] = sorted_item
     except json.decoder.JSONDecodeError as js:
-
+        log_error(js)
         sorted_data = {}
     return sorted_data
 
 
 def create_wb(data, path):
-    now = time.time()
+    #now = time.time()
     workbook = xlwt.Workbook()
     wb = workbook.add_sheet('wb')
     titles = ['Name', 'Founder', 'Registered', 'Locality', 'Post code', 'Address',
@@ -147,7 +156,8 @@ def create_wb(data, path):
     for i, title in enumerate(titles):
         wb.write(0, i, title, bold)
     i = 1
-    for company, values in data.items():
+    for _, values in data.items():
+    #for company, values in data.items():
         x = 0
         wb.write(i, x, values['name'])
         wb.write(i, x + 1, values['founder'])
@@ -165,6 +175,7 @@ def create_wb(data, path):
     try:
         workbook.save(path)
     except TypeError as te:
+        log_error(te)
         pass
 
 
@@ -228,5 +239,5 @@ scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == "__main__":
-    #app.run(port=8000)
+    # app.run(port=8000)
     app.run(host='127.0.0.1', port=8000, debug=False)
